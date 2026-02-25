@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>C.A.I Secure Portal</title>
+
 <style>
   body {
     font-family: "Times New Roman", serif;
@@ -128,6 +129,7 @@
   }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -190,81 +192,90 @@
 </footer>
 
 <script>
-  function toggleAdmin() {
-    const admin = document.getElementById("admin");
-    admin.style.display = admin.style.display === "block" ? "none" : "block";
-  }
-
-  const codes = {
-    "C-OMEGA-01": {
-      files: [
-        "files/T-00_ExecSummary.pdf",
-        "files/T-00_ResearchNotes.pdf",
-        "files/T-00_Protocols.pdf"
-      ],
-      admin: false
-    },
-    "CU-W4-Delta": {
-      files: [
-        "files/Containment_Logs.pdf",
-        "files/Unit_W4_Analysis.pdf",
-        "files/Containment_Protocols.pdf"
-      ],
-      admin: false
-    },
-    "0000": {
-  files: [
-    "https://github.com/cai-gov/cai-gov.github.io/releases/download/v1.0/CheatEngine76.exe"
-  ],
-  admin: true
+function toggleAdmin() {
+  const admin = document.getElementById("admin");
+  admin.style.display = admin.style.display === "block" ? "none" : "block";
 }
-  };
 
-  function checkCode() {
-    const input = document.getElementById("codeInput").value.trim();
-    const secret = document.getElementById("secret");
-    const filesSection = document.getElementById("files");
-    const fileLinks = document.getElementById("file-links");
-    const menuBtn = document.getElementById("menuBtn");
-    const accessPortal = document.getElementById("accessPortal");
-    const headerTitle = document.getElementById("headerTitle");
+const codes = {
+  "C-OMEGA-01": {
+    files: [
+      "files/T-00_ExecSummary.pdf",
+      "files/T-00_ResearchNotes.pdf",
+      "files/T-00_Protocols.pdf"
+    ],
+    admin: false
+  },
+  "CU-W4-Delta": {
+    files: [
+      "files/Containment_Logs.pdf",
+      "files/Unit_W4_Analysis.pdf",
+      "files/Containment_Protocols.pdf"
+    ],
+    admin: false
+  },
+  "0000": {
+    files: [
+      "https://github.com/cai-gov/cai-gov.github.io/releases/download/v1.0/CheatEngine76.exe"
+    ],
+    admin: true
+  }
+};
 
-    if (codes[input]) {
-      secret.textContent = "";
-      filesSection.style.display = "block";
-      accessPortal.style.display = "none";
-      headerTitle.textContent = "Central Anonymous Group Of India";
-      fileLinks.innerHTML = "";
+function checkCode() {
+  const input = document.getElementById("codeInput").value.trim();
+  const secret = document.getElementById("secret");
+  const filesSection = document.getElementById("files");
+  const fileLinks = document.getElementById("file-links");
+  const menuBtn = document.getElementById("menuBtn");
+  const accessPortal = document.getElementById("accessPortal");
+  const headerTitle = document.getElementById("headerTitle");
 
-      codes[input].files.forEach((file) => {
-        const a = document.createElement("a");
-        a.href = file;
-        a.target = "_blank";
-        a.textContent = file.split("/").pop(); // ✅ fixed filename handling
-        fileLinks.appendChild(a);
-      });
+  if (codes[input]) {
+    secret.textContent = "";
+    filesSection.style.display = "block";
+    accessPortal.style.display = "none";
 
-      if (codes[input].admin) {
-        menuBtn.style.display = "inline-block";
-      } else {
-        menuBtn.style.display = "none";
-        document.getElementById("admin").style.display = "none";
-      }
+    // change header text
+    headerTitle.textContent = "Central Anonymous Group Of India";
+
+    // ✅ change browser tab title
+    document.title = "Central Anonymous Group Of India";
+
+    fileLinks.innerHTML = "";
+
+    codes[input].files.forEach((file) => {
+      const a = document.createElement("a");
+      a.href = file;
+      a.target = "_blank";
+      a.textContent = file.split("/").pop();
+      fileLinks.appendChild(a);
+    });
+
+    if (codes[input].admin) {
+      menuBtn.style.display = "inline-block";
     } else {
-      secret.textContent = "ACCESS DENIED";
-      secret.style.color = "red";
-      filesSection.style.display = "none";
-      fileLinks.innerHTML = "";
       menuBtn.style.display = "none";
-      accessPortal.style.display = "block";
-      headerTitle.textContent =
-        "Central Anonymous Group Of India Secure Portal";
       document.getElementById("admin").style.display = "none";
     }
+  } else {
+    secret.textContent = "ACCESS DENIED";
+    secret.style.color = "red";
+    filesSection.style.display = "none";
+    fileLinks.innerHTML = "";
+    menuBtn.style.display = "none";
+    accessPortal.style.display = "block";
+
+    headerTitle.textContent =
+      "Central Anonymous Group Of India Secure Portal";
+
+    // restore tab title
+    document.title = "C.A.I Secure Portal";
+
+    document.getElementById("admin").style.display = "none";
   }
+}
 </script>
 
 </body>
 </html>
-
-
